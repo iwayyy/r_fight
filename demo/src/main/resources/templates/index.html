@@ -1,11 +1,20 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDoApp</title>
-</head>
-<body>
-<h1>ThymeleafでHello World! </h1>
-<h1 th:text="${msg}"></h1>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>ToDoApp</title>
+    </head>
+    <body>
+        <h1>ThymeleafでHello World! </h1>
+        <h1 th:text="${msg}"></h1>
+
+        <form th:action="@{/create}" th:object="${todo}" method="post">
+            <label>ToDo：</label>
+            <input type="text" th:field="*{text}" placeholder="学習内容">
+            <input type="submit" value="登録" id="button">
+        </form>
+
+
+
+    </body>
 </html>
