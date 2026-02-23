@@ -1,11 +1,34 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>ToDoApp</title>
-</head>
-<body>
-<h1>ThymeleafでHello World! </h1>
-<h1 th:text="${msg}"></h1>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <title>ToDoApp</title>
+    </head>
+    <body>
+        <h1>ThymeleafでHello World! </h1>
+        <h1 th:text="${msg}"></h1>
+
+        <form th:action="@{/create}" th:object="${todo}" method="post">
+            <label>ToDo：</label>
+            <input type="text" th:field="*{text}" placeholder="学習内容">
+            <input type="submit" value="登録" id="button">
+        </form>
+
+        <h2>ToDo一覧</h2>
+        <div th:if="${todoList.size() == 0}">
+            <p>タスクがありません。</p>
+        </div>
+
+        <div th:if="${todoList.size() > 0}">
+            <div th:each="todos : ${todoList}">
+                <form th:action="@{/update}" method="post">
+                    <input type="hidden" name="id" th:value="${todos.id}">
+                    <label th:text="${todos.id}"></label>
+                    <input type="text" name ="text" th:value="${todos.text}">
+                    <input type="submit" value="更新" id = "update">
+                </form>
+                <a th:href="@{/delete/{id}(id=${todos.id})}">削除</a>
+            </div>
+        </div>
+    </body>
 </html>
